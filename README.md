@@ -9,7 +9,11 @@ Calculator GUI Desktop Application using PYQT6.
 
 
 
-https://user-images.githubusercontent.com/80567400/213874179-794286d3-a3bd-4919-b860-d7db25b4a069.mp4
+
+
+https://user-images.githubusercontent.com/80567400/213874368-4c4185d3-792c-4748-8183-fc82c4a26204.mp4
+
+
 
 
 
