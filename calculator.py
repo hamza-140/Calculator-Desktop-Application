@@ -1,12 +1,11 @@
 from functools import partial
-
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 import sys
 
-ERROR_MSG = "ERROR"
-BUTTON_SIZE = 80
+error = "ERROR"
+button_height = 80
 
 class Calculator(QMainWindow):
     def __init__(self):
@@ -43,8 +42,8 @@ class Calculator(QMainWindow):
         toprow_layout.addWidget(ms_label)
         toprow_layout.addStretch()
         outerlayout.addLayout(toprow_layout)
-        keyboard_layout = QGridLayout()
-        keyBoard = [
+        buttons_keyboard_layout = QGridLayout()
+        buttons_keyboard = [
             ["%", "CE", "C", "⌫"],
             ["1/x", "x²", "√x", "÷"],
             ["7", "8", "9", "✕"],
@@ -52,17 +51,17 @@ class Calculator(QMainWindow):
             ["1", "2", "3", "+"],
             ["+/-", "0", ".", "="],
         ]
-        for row, keys in enumerate(keyBoard):
+        for row, keys in enumerate(buttons_keyboard):
             for col, key in enumerate(keys):
                 self.buttonMap[key] = QPushButton(key)
-                self.buttonMap[key].setFixedHeight(BUTTON_SIZE)
+                self.buttonMap[key].setFixedHeight(button_height)
                 self.buttonMap[key].setStyleSheet("color:white;background-color:#263859;font-size:25px")
-                keyboard_layout.addWidget(self.buttonMap[key], row, col)
+                buttons_keyboard_layout.addWidget(self.buttonMap[key], row, col)
         self.buttonMap["÷"].setStyleSheet("color:white;background-color:#263859;font-size:40px")
         self.buttonMap["-"].setStyleSheet("color:white;background-color:#263859;font-size:40px")
         self.buttonMap["+"].setStyleSheet("color:white;background-color:#263859;font-size:40px")
         self.buttonMap["="].setStyleSheet("color:white;background-color:#FF6768;font-size:40px")
-        outerlayout.addLayout(keyboard_layout)
+        outerlayout.addLayout(buttons_keyboard_layout)
         widget.setLayout(outerlayout)
         self.setCentralWidget(widget)
 
@@ -86,7 +85,7 @@ def evaluateExpression(expression):
     try:
         result = str(eval(expression, {}, {}))
     except Exception:
-        result = ERROR_MSG
+        result = error
     return result
 
 
@@ -101,7 +100,7 @@ class calculation:
         self._view.setDisplayText(result)
 
     def _buildExpression(self, subExpression):
-        if self._view.displayText() == ERROR_MSG:
+        if self._view.displayText() == error:
             self._view.clearDisplay()
         expression = self._view.displayText() + subExpression
         self._view.setDisplayText(expression)
